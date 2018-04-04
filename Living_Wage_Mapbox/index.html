@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8' />
+    <title></title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.44.1/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.44.1/mapbox-gl.css' rel='stylesheet' />
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+      }
+
+		#map {
+	    	position: absolute;
+		    top: 0;
+		    bottom: 0;
+		    width: 100%;
+	  	}
+
+	    #legend {
+		    padding: 10px;
+		    box-shadow: 0 1px 2px rgba(0,0,0,0.10);
+		    line-height: 18px;
+		    height: 150px;
+		    margin-bottom: 40px;
+		    width: 150px;
+		}
+
+		.map-overlay {
+		    position: absolute;
+		    bottom: 0;
+		    right: 0;
+		    background: rgba(255, 255, 255, 0.8);
+		    margin-right: 20px;
+		    font-family: Arial, sans-serif;
+		    overflow: auto;
+		    border-radius: 3px;
+		}
+
+		#features {
+		    top: 0;
+		    height: 150px;
+		    margin-top: 20px;
+		    width: 500px;
+		}
+
+		#legend div {
+			margin-bottom: 10px;
+		}
+
+		.legend-key {
+		    display: inline-block;
+		    border-radius: 20%;
+		    width: 15px;
+		    height: 15px;
+		    margin-right: 5px;
+		}
+
+		#pd, h2,
+		h3 {
+		  margin: 10px;
+		  font-size: 1.2em;
+		}
+
+		h3 {
+		  font-size: 1em;
+		}
+    </style>
+</head>
+<body>
+
+<div id='map'></div>
+<div class='map-overlay' id='features'><h2>Differences in Living and Minimum Wages</h2><div id='pd'><p> Living costs vary by region and the minimum wage is not always sufficient. Clicking on a county will provide a comparison of the local wage indicators. </p></div></div>
+<div class='map-overlay' id='legend'></div>
+<script>
+
+
+	mapboxgl.accessToken = 'pk.eyJ1IjoiZnJhbmtoYW45NSIsImEiOiJjamUwaWNweWQxNG94MzNwOTYxY2ZsMWd4In0.fjPGUVDBBLxHXbBwgFTxyA';
+	var map = new mapboxgl.Map({
+	      container: 'map',
+	      style: 'mapbox://styles/frankhan95/cjehi444204642snzpjbcfrmg',
+	      center: [-96, 37.8],
+	      zoom: 3
+	    });
+
+  map.on('load', function () {
+  	
+
+    map.addLayer({
+          'id': 'counties',
+          'type': 'fill',
+          'source': {
+              'type': 'geojson',
+              'data': 'USA_Wages.geojson'
+          },
+          'paint': {
+              'fill-color': 'rgba(200, 100, 240, 0.0)',
+              'fill-outline-color': 'rgba(255, 255, 255, 0.2)'
+          }
+     });
+
+    map.on('click', 'counties', function (e) {
+    	var html = "<b>"+e.features[0].properties.county + "</b><br>Wages<br> ";
+    	var diff = "<b>Diff: " + e.features[0].properties['Living_Dif'] + " USD <br></b>"; 
+    	var living = "Living: "  + e.features[0].properties.living + " USD <br>"; 
+    	var minimum = "Minimum: "  + e.features[0].properties.min + " USD <br>"; 
+    	html = html + living + minimum + diff; 
+        new mapboxgl.Popup()
+            .setLngLat(e.lngLat)
+            .setHTML(html)
+            .addTo(map);
+      });
+
+	var layers = ['-$10 to -$7.75', '-$7.5 to -$5.25', '-$5 to -$2.75', '-$2.5 to -$0.25', 'More than $0'];
+	var colors = ['#472575', '#37598c', '#23898d', '#32b57a', '#b7dd29'];
+
+    for (i = 0; i < layers.length; i++) {
+	  var layer = layers[i];
+	  var color = colors[i];
+	  var item = document.createElement('div');
+	  var key = document.createElement('span');
+	  key.className = 'legend-key';
+	  key.style.backgroundColor = color;
+
+	  var value = document.createElement('span');
+	  value.innerHTML = layer;
+	  item.appendChild(key);
+	  item.appendChild(value);
+	  legend.appendChild(item);
+	}
+  });
+</script>
+
+</body>
+</html>
