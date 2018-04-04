@@ -1,27 +1,16 @@
-# Group 2: Living Wages in the USA
-#### Frank Han, Daniel Davis, Jonathan Agsalog Cortez, Luis Del Toro
+# Living Wages in the USA
 
 ### Description
-Living costs vary by region and the minimum wage is not always sufficient. Dr. Amy Glasmeir at MIT has built a living wage model and presented her findings on her website. We created a visualization of her data and compared it with minimum wages. 
+Living costs vary by region and the minimum wage is not always sufficient. Dr. Amy Glasmeir at MIT has built a living wage model and presented her findings on her website. This visualization uses her data to compare living costs and minimum wages at U.S county levels. 
 
-#### The MapBox Version for the entire USA.
-![Mapbox Screenshot](https://github.com/UW-Geog458-Win2018/Group2/blob/master/Screenshots/mapbox_ver.png)
+#### Workflow
+1. Create python web scraper [Jupyter Notebook](https://github.com/frankhan95/Living_Wage/blob/master/WebScraper/Wage_Scraper.ipynb)
+2. Import [results](https://github.com/frankhan95/Living_Wage/blob/master/WebScraper/Data_Tables/Scraped_USA_Wages.csv) into an [ArcMap Document](https://github.com/frankhan95/Living_Wage/blob/master/WebScraper/Example.mxd)
+3. Append FIPS codes to each county.
+4. Write [MapBox App](https://github.com/frankhan95/Living_Wage/tree/master/Living_Wage_Mapbox) and bind [county geometries](https://www.census.gov/geo/maps-data/data/cbf/cbf_counties.html).
 
-#### The Storymap Version that focuses on WA state.
-![Storymap Screenshot](https://github.com/UW-Geog458-Win2018/Group2/blob/master/Screenshots/storymap_ver.png)
-
-
-### Deliverable Links
-1. [MapBox Version](http://students.washington.edu/fhan/living_wage/)
-2. [Storymap (Narration) Version](https://arcg.is/1HLCiD)
-3. [Write Up](https://docs.google.com/document/d/1krVaaWOCyBlLRmQ-p2o6I5KWO3Sj5AjwrtIG_R4-ak0/edit?usp=sharing)
-
-### Github References
-1. [Web Scraper Jupyter Notebook](https://github.com/UW-Geog458-Win2018/Group2/blob/master/WebScraper/Wage_Scraper.ipynb)
-2. [Scraped Results (Data Files)](https://github.com/UW-Geog458-Win2018/Group2/blob/master/WebScraper/Data_Tables/Scraped_USA_Wages.csv)
-3. [ArcMap Document (.mxd)](https://github.com/UW-Geog458-Win2018/Group2/blob/master/WebScraper/Example.mxd)
-4. [MapBox Standalone Files](https://github.com/UW-Geog458-Win2018/Group2/tree/master/Living_Wage_Mapbox)
-5. [MapBox Style JSON](https://github.com/UW-Geog458-Win2018/Group2/tree/master/Living_Wage_Mapbox/style.json)
+#### [The MapBox Interactive for the entire USA.](http://students.washington.edu/fhan/living_wage/)
+![Mapbox Screenshot](https://github.com/frankhan95/Living_Wage/blob/master/Screenshots/mapbox_ver.png)
 
 ### Data Sources
 1. [Living Wages](http://livingwage.mit.edu)
